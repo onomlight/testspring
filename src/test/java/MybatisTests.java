@@ -21,27 +21,14 @@ public class MybatisTests {
 	
 	@Autowired
 	private SqlSessionFactory ssf;
-	@Autowired
-	private TestMapper testMapper;
 	
+
 	@Test
 	public void test() {
 		SqlSession dbs = ssf.openSession();
 		Connection conn = dbs.getConnection();
-		log.info("conn's obj : " + conn);
-		
+		log.info("Conn's obj : " + conn);
 	}
-
 	
-	@Test
-	public void test2() {
-		String time = testMapper.getTime();
-		log.info("time : " + time);
-	}
+
 }
-
-
-
-
-
-

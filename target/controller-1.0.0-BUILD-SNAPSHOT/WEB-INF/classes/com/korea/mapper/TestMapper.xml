@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 경로지정을 먼저하고 진핼할 수 있도록하는부분  -->
+<mapper namespace="com.korea.mapper.TestMapper"> 
+	<select id="getTime2" resultType="string">
+	<!-- 함수명을 지정하여서 할 수 있도록함 쿼리결과는 스트링이라는 값으로 변환해서 나오게함 -->
+		select sysdate from dual
+	</select>
+</mapper>
