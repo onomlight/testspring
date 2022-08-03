@@ -1,17 +1,20 @@
 package com.korea.controller;
 
-import java.text.SimpleDateFormat;
+ 
 
-import org.springframework.beans.propertyeditors.CustomBooleanEditor;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.korea.domain.BoardDTO;
 import com.korea.domain.SampleDTO;
 import com.korea.domain.SampleDTOList;
 import com.korea.domain.TodoDTO;
@@ -88,4 +91,81 @@ public class SampleController {
 		log.info("URL : /test8");
 		log.info(dto);
 	}
+	@GetMapping("/test9")
+	public void test9(SampleDTO dto,Model model) {
+		log.info("URL : /test9...");
+		log.info("dto : " + dto);
+		
+		model.addAttribute("dto",dto);
+	}
+	
+	
+	
+	@GetMapping("/test10")
+	public String test10() { //내가원하는 위치에 넣고싶다고하면 반환형을 스트링으로 요청
+		log.info("URL : /test10...");
+		
+		return "/test10";
+	}
+	
+	
+	@GetMapping("/forward")
+	public String Forward(SampleDTO dto,Model model) {
+		log.info("URL : /forward...");
+		
+		model.addAttribute("dto",dto);
+		
+		return "forward:result";
+	}
+	
+	@GetMapping("/redirect") //리퀘스트를 담았더라도 내용전달이안됨 리다이렉트쓸대는 밑에 내용으로 사용해야함 
+	public String redirect(SampleDTO dto,RedirectAttributes rttr) {
+		log.info("URL : /redirect...");
+		
+		//model.addAttribute("dto",dto);
+		rttr.addFlashAttribute("dto",dto);
+		
+		return "redirect:result";
+	}
+	@GetMapping("/result")
+	public void result(Model model) {
+		
+		log.info("URL : /result...");
+		BoardDTO dto= new BoardDTO().builder()
+				.no(1010)
+				.content("내용내용")
+				.writer("작성자~")
+				.build();
+		model.addAttribute("board",dto);
+		
+	}
+	
+	
+	@GetMapping("/objectTest")
+	public @ResponseBody SampleDTO ObjectTest() {
+		SampleDTO dto = new SampleDTO();
+		dto.setName("길동스");
+		dto.setAge(22);
+		
+		return dto;
+	}
+	
+	
+	@GetMapping("/objectTest2")
+	public ResponseEntity<String> ObjectTest2() {
+		SampleDTO dto = new SampleDTO();
+		dto.setName("길동스");
+		dto.setAge(22);
+		
+		HttpHeaders header = new HttpHeaders();
+		header.add("content-Type","application/xml;charset=utf-8");
+		
+		return new ResponseEntity<String>(dto.toString(),header,HttpStatus.OK);
+	}
+	
+//	
+//	@GetMapping("/test12")
+//	public void test12() {
+//		
+//	}
 }
