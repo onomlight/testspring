@@ -13,6 +13,6 @@ public interface TestMapper {
 	
 	public String getTime2();
 	
-	@Select("select * from tbl_board")
+	@Select("select * from tbl_board1")
 	public List<BoardDTO> SelectAll();
 }

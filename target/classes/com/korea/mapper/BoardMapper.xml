@@ -28,7 +28,14 @@
 		
 		<select id="readXML" resultType="com.korea.domain.BoardVO">
 			<![CDATA[
-				select * from tbl_board where bno =#{bno}
+				select * from tbl_board1 where bno =#{bno}
 			]]>
 		</select>
+		<delete id="deleteXML">
+			delete from tbl_board1 where bno = #{bno}
+		</delete>
+		
+		<update id="updateXML">
+			update tbl_board1 set title=#{title},content=#{content},writer=#{writer},updateDate=sysdate where bno=#{bno}
+		</update>
 </mapper>
