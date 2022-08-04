@@ -28,13 +28,13 @@ public class BoardController {
 		model.addAttribute("list",service.getList());
 	}
 	
-	@GetMapping("/get")
+	@GetMapping({"/get","/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		log.info("/get");
 		model.addAttribute("board",service.get(bno));
 	}
 	
-	@GetMapping("modify")
+	@PostMapping("modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
 		log.info("modify: " + board);
 		if(service.modify(board)) {
@@ -43,7 +43,7 @@ public class BoardController {
 		return "redirect:/board/list";
 		
 	}
-	@GetMapping("remove")
+	@PostMapping("remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		
 		log.info("remove : " + bno);

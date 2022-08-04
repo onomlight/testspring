@@ -22,7 +22,10 @@
 		<div id="nav">
 			<%@include file="/resources/includes/nav.jsp" %>
 		</div>
-		<div id="contents">
+	<!-- 	33p <div id="contents">
+			<div class=mt-3 style=text-align:right;>
+				<a class="btn btn-secondary" href="/board/register">글등록</a>
+			</div> -->
 		<!-- 목록 화면 처리  -->
 			<table class="table table-striped table-hover table-bordered mt-3">
 				<tr>
@@ -37,7 +40,7 @@
 				<c:forEach items="${list}" var="board">
 				<tr>
 					<td><c:out value="${board.bno }"/></td>
-					<td><c:out value="${board.title }"/></td>
+					<td><a href="/board/get?bno=${board.bno }"></a><c:out value="${board.title }"/></td>
 					<td><c:out value="${board.writer }"/></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>
@@ -74,20 +77,23 @@
 				
 		</div>
 	</div>
-<!-- 	<script>
-	 	$(document).ready(function(){
-	 		var result = '<c:out value="${result}" .>';
-	 		checkModal (result);
-	 		function checkModal(result){
-	 			if(result===''){
-	 				return;
-	 			}
-	 			if(parseInt(result)>0){
-	 				$.(".modal-body").html("게시글 : " + parseInt(result)+" 번이 등록되었습니다.")
-	 			}
-	 			$("#myModal").modal("show");
-	 		}
-	 	}) 31p안됨
-	</script> -->
+
 </body>
+<script >
+	$(document).ready(function () {
+		var result = '<c:out value="${result}"/>';
+		checkModal(result);
+		//추가
+		history.replaceState({},null,null);
+		function checkModal(result){
+			if(result===' '||history.state){
+				return ;
+			}
+			if(parseInt(result)>0){
+				$(".modal-body").html("게시물 : " + parseInt(result)+" 번이 등록되었습니다.");
+			}
+			$("#myModal").modal("show");
+		}
+	})
+</script>
 </html>
