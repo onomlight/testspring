@@ -163,6 +163,11 @@ public class SampleController {
 		return new ResponseEntity<String>(dto.toString(),header,HttpStatus.OK);
 	}
 	
+	@GetMapping("/replies?form")
+	public String reqreplytest() {
+		return "replytestform";
+	}
+	
 //	
 //	@GetMapping("/test12")
 //	public void test12() {
